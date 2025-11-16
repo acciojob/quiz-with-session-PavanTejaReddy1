@@ -1,4 +1,7 @@
-//your JS code here.
+const questionsElement = document.getElementById("questions");
+const submitBtn = document.getElementById("submit");
+const displayScore = document.getElementById("score");
+let userAnswers = [];
 
 // Do not change code below this line
 // This code will just display the questions to the screen
@@ -51,6 +54,26 @@ function renderQuestions() {
       questionElement.appendChild(choiceText);
     }
     questionsElement.appendChild(questionElement);
+	questionElement.addEventListener("click", (e) => {
+		if(e.target.tagName === "INPUT") {
+			const questionIndex = e.target.name.split("-")[1];
+			userAnswers[questionIndex] = e.target.value;
+			sessionStorage.setItem("progress", JSON.stringify(userAnswers));
+		}
+	})
   }
 }
 renderQuestions();
+
+submitBtn.addEventListener("click", getScore)
+
+function getScore() {
+	let score = 0;
+	for(i=0; i<questions.length; i++) {
+		if(questions[i].answer === userAnswers[i]) {
+			score++;
+		}
+	}
+	displayScore.innerText = `Your score is ${score} out of 5.`
+	localStorage.setItem("score", score);
+}
