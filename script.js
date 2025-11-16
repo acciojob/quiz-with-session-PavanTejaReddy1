@@ -1,7 +1,7 @@
 const questionsElement = document.getElementById("questions");
 const submitBtn = document.getElementById("submit");
 const displayScore = document.getElementById("score");
-let userAnswers = [];
+let userAnswers = JSON.parse(sessionStorage.getItem("progress")) || [];
 
 // Do not change code below this line
 // This code will just display the questions to the screen
